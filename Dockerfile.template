@@ -6,6 +6,7 @@ FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3-stretch-run
 
 WORKDIR /usr/src/app
 	
+#RUN apt-get install python3-tk
 
 # Install build dependencies
 RUN install_packages \
@@ -27,7 +28,10 @@ RUN install_packages \
   libnss3-dev \
   libsmbclient \
   libssh-4 \
-  libexpat-dev 
+  libexpat-dev \
+  python3-tk 
+
+COPY . ./
 
 
 # Install runtime dependencies
@@ -62,4 +66,5 @@ RUN echo "new_video.py" > /etc/X11/xinit/xserverrc \
 
 
 # Start app
-CMD ["python","-u","usr/local/bin/python/new_video.py"]
+CMD ["./start.sh"]
+CMD ["python","-u","new_video.py"]
